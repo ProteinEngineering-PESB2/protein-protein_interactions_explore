@@ -1,0 +1,17 @@
+Properties,AA,AC,AG,AT,CA,CC,CG,CT,GA,GC,GG,GT,TA,TC,TG,TT,nucleicacid,strand,howcreated,type,Scaleunit
+Stacking energy,1.3,1.7,1.5,1.8,1.1,1.5,1.2,1.3,2.1,2.2,1.4,1.4,1.8,1.3,1.4,1.3,BDNA,double,calculated,physicochemical,kcal/mol
+Enthalpy,8,9.4,6.6,5.6,8.2,10.9,11.8,6.6,8.8,10.5,10.9,9.4,6.6,8.8,8.2,8,BDNA,double,experimental,physicochemical,kcal/mol
+Entropy,21.9,25.5,16.4,15.2,21,28.4,29,16.4,23.5,26.4,28.4,25.5,18.4,23.5,21,21.9,BDNA,double,experimental,physicochemical,cal/mol/K
+Flexibility_shift,5.35,9.73,8.98,1.13,4.61,5.51,12.13,8.98,5.44,1.98,5.51,9.73,4.28,5.44,4.61,5.35,DNA,double,calculated,physicochemical,kJ mol^-1 A^-2
+Flexibility_slide,13.72,9.57,7.58,11.69,1.35,7.36,4.02,7.58,10.28,4.34,7.36,9.57,7.13,10.28,1.35,13.72,DNA,double,calculated,physicochemical,kJ mol^-1 A^-2
+Free energy,0.67,1.28,1.17,0.62,1.19,1.55,1.87,1.17,1.12,1.85,1.55,1.28,0.7,1.12,1.19,0.67,BDNA,double,experimental,physicochemical,kcal/mol
+Melting Temperature,54.5,97.73,58.42,57.02,54.71,85.97,72.55,58.42,86.44,136.12,85.97,97.73,36.73,86.44,54.71,54.5,BDNA,double,experimental,physicochemical,degree
+Mobility to bend towards major groove,1.18,1.06,1.06,1.12,1.06,0.99,1.02,1.04,1.08,0.98,1,1.02,1.07,1.03,1.03,1.09,DNA,single,experimental,physicochemical,mu
+Mobility to bend towards minor groove,1.04,1.1,1.09,1.02,1.16,1.27,1.25,1.16,1.12,1.17,1.25,1.11,1.05,1.2,1.23,1.04,DNA,single,experimental,physicochemical,mu
+Probability contacting nucleosome core,18.4,10.2,14.5,7.2,15.7,10.2,1.1,14.5,11.3,5.2,10.2,10.2,6.2,11.3,15.7,18.4,BDNA,double,calculated,physicochemical,%
+Rise stiffness,7.65,8.93,7.08,9.07,6.38,8.04,6.23,7.08,8.56,9.53,8.04,8.93,6.23,8.56,6.38,7.65,BDNA,double,experimental,physicochemical,kcal/mol angstroem
+Roll stiffness,0.02,23,19,22,17,19,16,19,0.02,26,19,23,16,0.02,17,0.02,BDNA,double,experimental,physicochemical,kcal/mol degree
+Shift stiffness,1.69,1.32,1.46,1.03,1.07,1.43,1.08,1.46,1.32,1.2,1.43,1.32,0.72,1.32,1.07,1.69,BDNA,double,experimental,physicochemical,kcal/mol angstroem
+Slide stiffness,2.26,3.03,2.03,3.83,1.78,1.65,2,2.03,1.93,2.61,1.65,3.03,1.2,1.93,1.78,2.26,BDNA,double,experimental,physicochemical,kcal/mol angstroem
+Tilt stiffness,38,38,37,36,25,42,26,37,38,36,42,38,18,38,25,38,BDNA,double,experimental,physicochemical,kcal/mol degree
+Twist stiffness,26,36,31,33,16,26,14,31,25,25,26,36,17,25,16,26,BDNA,double,experimental,physicochemical,kcal/mol degree

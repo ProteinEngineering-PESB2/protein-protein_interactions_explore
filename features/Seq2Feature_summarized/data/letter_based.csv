@@ -1,0 +1,8 @@
+Properties,AA,AC,AG,AT,CA,CC,CG,CT,GA,GC,GG,GT,TA,TC,TG,TT,nucleicacid,strand,howcreated,type,scaleunit
+Adenine content,2,1,1,1,1,0,0,0,1,0,0,0,1,0,0,0,DNA/RNA,single,calculated,letter based,others
+Cytosine content,0,1,0,0,1,2,1,1,0,1,0,0,0,1,0,0,DNA/RNA,single,calculated,letter based,others
+GC content,0,1,1,0,1,2,2,1,1,2,2,1,0,1,1,0,DNA/RNA,single,calculated,letter based,others
+Guanine content,0,0,1,0,0,0,1,0,1,1,2,1,0,0,1,0,DNA/RNA,single,calculated,letter based,others
+Keto (GT) content,0,0,0,1,0,0,1,1,1,1,2,2,1,1,1,2,DNA/RNA,single,calculated,letter based,others
+Purine (AG) content,2,1,2,1,1,0,1,0,2,1,2,1,1,0,1,0,DNA/RNA,single,calculated,letter based,others
+Thymine content,0,0,0,1,0,0,0,1,0,0,0,1,1,1,1,2,DNA/RNA,single,calculated,letter based,others
