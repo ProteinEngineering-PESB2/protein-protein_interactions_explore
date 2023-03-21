@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 class Plot:
 
-    def graficar_loss(self, train, val, cutoff, name, method, type, num_epochs, transform_method):
+    def graficar_loss(self, train, val, cutoff, name, method, type, num_epochs, transform_method, model_type):
         fig, ax = plt.subplots(figsize=(12, 6))
         ax.plot(train, label='Train Loss')
         ax.plot(val, label='Validation Loss')
@@ -14,11 +14,11 @@ class Plot:
         ax.set_title(name + ' | Loss: cutoff ' + str(cutoff))
         ax.legend()
         if cutoff == 1:
-            plt.savefig('plots/' + type + '/loss/' + transform_method + '/pip_' + type + '_' + method + '_' + str(num_epochs) + '_loss_' + str(cutoff) + '.png')
+            plt.savefig('plots_' + model_type + '/' + type + '/loss/' + transform_method + '/pip_' + type + '_' + method + '_' + str(num_epochs) + '_loss_' + str(cutoff) + '.png')
         else:
-            plt.savefig('plots/' + type + '/loss/' + transform_method + '/pip_' + type + '_' + method + '_' + str(num_epochs) + '_loss_' + str(cutoff)[:4] + '.png')
+            plt.savefig('plots_' + model_type + '/' + type + '/loss/' + transform_method + '/pip_' + type + '_' + method + '_' + str(num_epochs) + '_loss_' + str(cutoff)[:4] + '.png')
 
-    def graficar_accuracy(self, train, val, cutoff, name, method, type, num_epochs, transform_method):
+    def graficar_accuracy(self, train, val, cutoff, name, method, type, num_epochs, transform_method, model_type):
         fig, ax = plt.subplots(figsize=(12, 6))
         ax.plot(train, label='Train Accuracy')
         ax.plot(val, label='Validation Accuracy')
@@ -29,11 +29,11 @@ class Plot:
         ax.set_title(name + ' | Accuracy: cutoff ' + str(cutoff))
         ax.legend()
         if cutoff == 1:
-            plt.savefig('plots/' + type + '/accuracy/' + transform_method + '/pip_' + type + '_' + method + '_' + str(num_epochs) + '_accuracy_' + str(cutoff) + '.png')
+            plt.savefig('plots_' + model_type + '/' + type + '/accuracy/' + transform_method + '/pip_' + type + '_' + method + '_' + str(num_epochs) + '_accuracy_' + str(cutoff) + '.png')
         else:
-            plt.savefig('plots/' + type + '/accuracy/' + transform_method + '/pip_' + type + '_' + method + '_' + str(num_epochs) + '_accuracy_' + str(cutoff)[:4] + '.png')
+            plt.savefig('plots_' + model_type + '/' + type + '/accuracy/' + transform_method + '/pip_' + type + '_' + method + '_' + str(num_epochs) + '_accuracy_' + str(cutoff)[:4] + '.png')
     
-    def graficar_loss_no_cutoff(self, train, val, name, method, type, num_epochs, transform_method):
+    def graficar_loss_no_cutoff(self, train, val, name, method, type, num_epochs, transform_method, model_type):
         fig, ax = plt.subplots(figsize=(12, 6))
         ax.plot(train, label='Train Loss')
         ax.plot(val, label='Validation Loss')
@@ -42,7 +42,7 @@ class Plot:
         # Agrega un título al gráfico
         ax.set_title(name + ' | Loss')
         ax.legend()
-        plt.savefig('plots/' + type + '/loss/' + transform_method + '/pip_' + type + '_' + method + '_' + str(num_epochs) + '_loss.png')
+        plt.savefig('plots_' + model_type + '/' + type + '/loss/' + transform_method + '/pip_' + type + '_' + method + '_' + str(num_epochs) + '_loss.png')
 
     # def graficar_accuracy_no_cutoff(self, train, val, name, method, type):
     #     fig, ax = plt.subplots(figsize=(12, 6))

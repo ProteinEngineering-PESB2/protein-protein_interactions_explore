@@ -1,7 +1,9 @@
 import pandas as pd
 
 
-linkpred = pd.read_csv('tables/kernel_pca/pip_linkpred_table200.csv', na_filter = False)
+pd.set_option('max_columns', None)
+
+linkpred = pd.read_csv('tables_gnn/kernel_pca/pip_linkpred_table200.csv', na_filter = False)
 
 etapas = {}
 for etapa, datos in linkpred.groupby('Etapa'):
@@ -17,7 +19,7 @@ print('Resultados PRUEBA de modelo de link prediction: Ordenado por precision')
 print(etapas['test'].sort_values(by='Precision', ascending=False))
 print('------------------------------------------------------------------------------')
 
-# edge_reg = pd.read_csv('tables/pip_edge_regression_table200.csv', na_filter = False)
+# edge_reg = pd.read_csv('tables_gnn/kernel_pca/pip_edge_regression_table50.csv', na_filter = False)
 
 # etapas = {}
 # for etapa, datos in edge_reg.groupby('Etapa'):

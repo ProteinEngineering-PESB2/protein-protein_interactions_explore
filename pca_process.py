@@ -5,9 +5,28 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.decomposition import NMF
 from sklearn.decomposition import FactorAnalysis
 from sklearn.decomposition import IncrementalPCA
+from sklearn.manifold import TSNE
 
 
 class transformation_data():
+
+    def apply_tsne(
+        self,
+        dataset,
+        n_components=3,
+        learning_rate='auto', 
+        init='random', 
+        perplexity=3):
+
+        tsne_instance = TSNE(
+            n_components=n_components,
+            learning_rate=learning_rate,
+            init=init,
+            perplexity=perplexity)
+         
+        transform_data = tsne_instance.fit_transform(dataset)
+
+        return transform_data, tsne_instance
 
     def apply_pca_linear(
         self, 
