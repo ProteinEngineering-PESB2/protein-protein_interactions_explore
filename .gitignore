@@ -3,3 +3,6 @@ test_edge_regression.py
 test_linkpred.py
 db_full/
 Protein-Protein/
+features/
+modelos_que_no_se_usaran/
+plots_y_tablas_antiguas/
