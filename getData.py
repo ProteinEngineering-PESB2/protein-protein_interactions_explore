@@ -44,7 +44,7 @@ class getData:
                 new_id1.append(id_dic[id1[i]])
                 new_id2.append(id_dic[id2[i]])
                 new_score.append(sc[i])
-        edge_label = torch.Tensor(new_score).to(self.device)
+        edge_label = torch.Tensor(new_score)
         # NODES FEATURES
         df_2 = pd.read_csv('features/Seq2Feature_summarized/resultados/result_values_normalized.csv', na_filter = False, header=None, sep='|')
         columna_features = df_2.values
@@ -76,7 +76,7 @@ class getData:
         for i, data in enumerate(id_dic.keys()):
             new_scoreid.append(data)
             new_score.append(old_id_score_dic[data])
-        nodes_features = torch.tensor(new_score).to(self.device)
+        nodes_features = torch.tensor(new_score)
 
         g = dgl.graph((new_id1, new_id2))
         g.ndata['feat'] = nodes_features
@@ -212,7 +212,7 @@ class getData:
         for i, data in enumerate(id_dic.keys()):
             new_scoreid.append(data)
             new_score.append(old_id_score_dic[data])
-        nodes_features = torch.tensor(new_score).to(self.device)
+        nodes_features = torch.tensor(new_score)
 
         g = dgl.graph((new_id1, new_id2))
         g.ndata['feat'] = nodes_features
