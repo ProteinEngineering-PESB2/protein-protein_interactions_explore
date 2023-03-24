@@ -1,5 +1,6 @@
 import sys
 import dgl
+import os
 import torch
 import random
 import argparse
@@ -74,6 +75,7 @@ def main(feature, transform, epochs, type_model, test_split):
     criterion = nn.MSELoss()
     optimizer = optim.Adam(model.parameters(), lr=0.01)
 
+    print('Iniciando entrenamiento...')
     # Ciclo de entrenamiento
     for epoch in range(epochs):
         df_epochs.append(epoch + 1)
@@ -86,8 +88,8 @@ def main(feature, transform, epochs, type_model, test_split):
         loss = criterion(out.float(), sub_g.edata['weights'].float())
         loss.backward()
         df_losse.append(loss.item())
-        print(f'-----------------------------------------Epoch: {epoch:03d}')
-        print('Loss train: ', loss.item())
+        # print(f'-----------------------------------------Epoch: {epoch:03d}')
+        # print('Loss train: ', loss.item())
         optimizer.step()
         # Testeo
         with torch.no_grad():
@@ -99,8 +101,8 @@ def main(feature, transform, epochs, type_model, test_split):
             out = model(sub_g_test.ndata['feat'], test_edges)
             loss = criterion(out.float(), sub_g_test.edata['weights'].float())
             df_losse.append(loss.item())
-            print('------------------TEST--------------------')
-            print('Loss test: ', loss.item())
+            # print('------------------TEST--------------------')
+            # print('Loss test: ', loss.item())
     # print('Entrenamiento termiando y modelo guardandose')
     # torch.save(model, 'modelos/trainned_model_edge_regressor_pip.pth')
     table = pd.DataFrame()
@@ -109,6 +111,12 @@ def main(feature, transform, epochs, type_model, test_split):
     table['Transform_method'] = df_transform
     table['Stage'] = df_stage
     table['Loss(BCE)'] = df_losse
+    
+    print('Entrenamiento finalizado...')
+    print('Resultados guardados en resultados/' + type_model + '_edge_regressor_epochs_' + str(epochs) + '_test_' + str(test_split) + '.csv')
+    ruta = 'resultados/'
+    if not os.path.exists(ruta):
+        os.mkdir(ruta)
     table.to_csv('resultados/' + type_model + '_edge_regressor_epochs_' + str(epochs) + '_test_' + str(test_split) + '.csv', index=False)
 
 if __name__ == "__main__":

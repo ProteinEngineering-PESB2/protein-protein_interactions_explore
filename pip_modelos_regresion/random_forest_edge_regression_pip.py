@@ -94,10 +94,11 @@ def main(feature, transform, type_model, test_split):
     df_methods = []
     df_tranform = []
 
+    print('Iniciando entrenamiento...')
     # Train
     train_pred = model.predict(train_concat_features)
     loss = mean_squared_error(sub_g.edata['weights'].numpy(), train_pred)
-    print('Train loss: ', loss)
+    # print('Train loss: ', loss)
     df_losses.append(loss)
     df_stages.append('train')
     df_methods.append(feature)
@@ -106,7 +107,7 @@ def main(feature, transform, type_model, test_split):
     # Test
     test_pred = model.predict(test_concat_features)
     loss = mean_squared_error(sub_g_test.edata['weights'].numpy(), test_pred)
-    print('Test loss: ', loss)
+    # print('Test loss: ', loss)
     df_losses.append(loss)
     df_stages.append('test')
     df_methods.append(feature)
@@ -120,6 +121,8 @@ def main(feature, transform, type_model, test_split):
     table['Stage'] = df_stages
     table['MSE'] = df_losses
 
+    print('Entrenamiento finalizado...')
+    print('Resultados guardados en resultados/' + type_model + '_edge_regressor_test_' + str(test_split) + '.csv')
     ruta = 'resultados/'
     if not os.path.exists(ruta):
         os.mkdir(ruta)

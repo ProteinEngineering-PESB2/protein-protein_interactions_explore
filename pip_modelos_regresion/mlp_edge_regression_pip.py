@@ -99,6 +99,7 @@ def main(feature, transform, epochs, type_model, test_split):
     criterion = nn.MSELoss()
     optimizer = optim.Adam(model.parameters(), lr=0.01)
 
+    print('Iniciando entrenamiento...')
     # Ciclo de entrenamiento
     for epoch in range(epochs):
         df_epochs.append(epoch + 1)
@@ -135,6 +136,8 @@ def main(feature, transform, epochs, type_model, test_split):
     table['Stage'] = df_stage
     table['Loss(BCE)'] = df_losse
 
+    print('Entrenamiento finalizado...')
+    print('Resultados guardados en resultados/' + type_model + '_edge_regressor_epochs_' + str(epochs) + '_test_' + str(test_split) + '.csv')
     ruta = 'resultados/'
     if not os.path.exists(ruta):
         os.mkdir(ruta)

@@ -106,13 +106,14 @@ def main(feature, transform, type_model, test_split):
     df_tranform = []
     df_accuracys = []
 
+    print('Iniciando entrenamiento...')
     # Train
     train_pred = model.predict(train_concat_features)
     accuracy = (train_pred == train_label).mean().item()
     
     loss = log_loss(train_label, train_pred)
-    print('Train accuracy: ', accuracy)
-    print('Train loss: ', loss)
+    # print('Train accuracy: ', accuracy)
+    # print('Train loss: ', loss)
     df_losses.append(loss)
     df_stages.append('train')
     df_methods.append(feature)
@@ -123,8 +124,8 @@ def main(feature, transform, type_model, test_split):
     test_pred = model.predict(test_concat_features)
     accuracy = (test_pred == test_label).mean().item()
     loss = log_loss(test_label, test_pred)
-    print('Test accuracy: ', accuracy)
-    print('Test loss: ', loss)
+    # print('Test accuracy: ', accuracy)
+    # print('Test loss: ', loss)
     df_losses.append(loss)
     df_stages.append('train')
     df_methods.append(feature)
@@ -140,10 +141,11 @@ def main(feature, transform, type_model, test_split):
     table['Accuracy'] = df_accuracys
     table['MSE'] = df_losses
 
+    print('Entrenamiento finalizado...')
+    print('Resultados guardados en resultados/' + type_model + '_edge_regressor_test_' + str(test_split) + '.csv')
     ruta = 'resultados/'
     if not os.path.exists(ruta):
         os.mkdir(ruta)
-
     table.to_csv('resultados/' + type_model + '_edge_regressor_test_' + str(test_split) + '.csv', index=False)
 
 if __name__ == "__main__":

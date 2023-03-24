@@ -80,6 +80,7 @@ def main(feature, transform, epochs, type_model, test_split):
     optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)
     criterion = torch.nn.BCEWithLogitsLoss()
 
+    print('Iniciando entrenamiento...')
     # Ciclo de entrenamiento
     cutoff = 0.5 # 1 o 0.865739974975586
     for epoch in range(epochs):
@@ -97,9 +98,9 @@ def main(feature, transform, epochs, type_model, test_split):
         loss_binary = F.binary_cross_entropy_with_logits(binary, sub_g.edata['label'].float(), reduction='mean')
         df_accuracy.append(accuracy)
         df_losse.append(loss_binary.item())
-        print(f'-----------------------------------------Epoch: {epoch:03d}')
-        print('Loss train: ', loss_binary.item())
-        print('Accuracy train: ', accuracy)
+        # print(f'-----------------------------------------Epoch: {epoch:03d}')
+        # print('Loss train: ', loss_binary.item())
+        # print('Accuracy train: ', accuracy)
         optimizer.step()
         # Testeo
         with torch.no_grad():
@@ -114,9 +115,9 @@ def main(feature, transform, epochs, type_model, test_split):
             test_accuracy = (test_binary == sub_g_test.edata['label']).float().mean().item()
             df_accuracy.append(test_accuracy)
             df_losse.append(loss_binary.item())
-            print('------------------TEST--------------------')
-            print('Loss test: ', loss_binary.item())
-            print('Accuracy test: ', test_accuracy)
+            # print('------------------TEST--------------------')
+            # print('Loss test: ', loss_binary.item())
+            # print('Accuracy test: ', test_accuracy)
     # print('Entrenamiento termiando y modelo guardandose')
     # torch.save(model, 'modelos/trainned_model_linkpred_pip.pth')
     table = pd.DataFrame()
@@ -127,6 +128,8 @@ def main(feature, transform, epochs, type_model, test_split):
     table['Accuracy'] = df_accuracy
     table['Loss(BCE)'] = df_losse
 
+    print('Entrenamiento finalizado...')
+    print('Resultados guardados en resultados/' + type_model + '_linkpred_epochs_' + str(epochs) + '_test_' + str(test_split) + '.csv')
     ruta = 'resultados/'
     if not os.path.exists(ruta):
         os.mkdir(ruta)
