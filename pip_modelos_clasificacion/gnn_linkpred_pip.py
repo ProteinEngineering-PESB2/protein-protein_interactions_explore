@@ -11,7 +11,7 @@ import torch.nn.functional as F
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-def main(feature, transform, epochs, type_model, test_split):
+def main(feature, transform, epochs, type_model, test_split, hidden_layers):
     Dataframe = pd.read_csv('../pip_data_modelos/edge_index.csv', na_filter = False, dtype={'edge_1': int, 'edge_2': int})
     edge_1 = Dataframe['edge_1'].values
     edge_2 = Dataframe['edge_2'].values
@@ -49,6 +49,11 @@ def main(feature, transform, epochs, type_model, test_split):
 
     num_features = g.ndata['feat'][0].shape[0]
     num_edges = g.number_of_edges()
+
+    # Definir hidden_layers si no se declararon
+    if hidden_layers == '':
+        hidden_layers = num_features
+
     # Dividir set de datos
     n = int(num_edges)
     ids_edges = list(range(num_edges))
@@ -65,18 +70,12 @@ def main(feature, transform, epochs, type_model, test_split):
     # SET ENTRENAMIENTO
     src, dst = sub_g.edges()
     train_edges = torch.cat([src.unsqueeze(0), dst.unsqueeze(0)], dim=0)
-    # Extraer datos positivos de los negativos
-    index = torch.nonzero(sub_g.edata['label']).squeeze()
-    positive_train_edges = train_edges[:, index]
 
     # SET TEST
     src, dst = sub_g_test.edges()
     test_edges = torch.cat([src.unsqueeze(0), dst.unsqueeze(0)], dim=0)
-    # Extraer datos positivos de los negativos
-    index = torch.nonzero(sub_g_test.edata['label']).squeeze()
-    positive_test_edges = test_edges[:, index]
 
-    model = Net(num_features, num_features//2, 1).to(device)
+    model = Net(num_features, hidden_layers, 1).to(device)
     optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)
     criterion = torch.nn.BCEWithLogitsLoss()
 
@@ -91,16 +90,15 @@ def main(feature, transform, epochs, type_model, test_split):
         model.train()
         optimizer.zero_grad()
         out, binary = model.encode(sub_g.ndata['feat'], train_edges, cutoff)
-        # out, binary = model.decode(z, train_edges, cutoff)
         accuracy = (binary == sub_g.edata['label']).float().mean().item()
         loss = criterion(out, sub_g.edata['label'].float())
         loss.backward()
         loss_binary = F.binary_cross_entropy_with_logits(binary, sub_g.edata['label'].float(), reduction='mean')
         df_accuracy.append(accuracy)
         df_losse.append(loss_binary.item())
-        # print(f'-----------------------------------------Epoch: {epoch:03d}')
-        # print('Loss train: ', loss_binary.item())
-        # print('Accuracy train: ', accuracy)
+        print(f'-----------------------------------------Epoch: {epoch:03d}')
+        print('Loss train: ', loss_binary.item())
+        print('Accuracy train: ', accuracy)
         optimizer.step()
         # Testeo
         with torch.no_grad():
@@ -110,14 +108,13 @@ def main(feature, transform, epochs, type_model, test_split):
             df_transform.append(transform)
             model.eval()
             out, test_binary = model.encode(sub_g_test.ndata['feat'], test_edges, cutoff)
-            # out, test_binary = model.decode(z, test_edges, cutoff)
             loss_binary = F.binary_cross_entropy_with_logits(test_binary, sub_g_test.edata['label'].float(), reduction='mean')
             test_accuracy = (test_binary == sub_g_test.edata['label']).float().mean().item()
             df_accuracy.append(test_accuracy)
             df_losse.append(loss_binary.item())
-            # print('------------------TEST--------------------')
-            # print('Loss test: ', loss_binary.item())
-            # print('Accuracy test: ', test_accuracy)
+            print('------------------TEST--------------------')
+            print('Loss test: ', loss_binary.item())
+            print('Accuracy test: ', test_accuracy)
     # print('Entrenamiento termiando y modelo guardandose')
     # torch.save(model, 'modelos/trainned_model_linkpred_pip.pth')
     table = pd.DataFrame()
@@ -129,7 +126,7 @@ def main(feature, transform, epochs, type_model, test_split):
     table['Loss(BCE)'] = df_losse
 
     print('Entrenamiento finalizado...')
-    print('Resultados guardados en resultados/' + type_model + '_linkpred_epochs_' + str(epochs) + '_test_' + str(test_split) + '.csv')
+    print('Resultados guardados en resultados/' + type_model + '_linkpred_epochs_' + str(epochs) + '_test_' + str(test_split) + '_hidden_layers_' + str(hidden_layers) + '.csv')
     ruta = 'resultados/'
     if not os.path.exists(ruta):
         os.mkdir(ruta)
@@ -142,6 +139,7 @@ if __name__ == "__main__":
     parser.add_argument("--features", metavar="[features to use]", help="Features: [seq_to_seq], NLP: [bepler, fasttext, glove], Onehot: [onehot], FFT: [fft_alpha_structure, fft_betha_structure, fft_energetic, fft_hydropathy, fft_hydrophobicity, fft_index, fft_secondary_structure, fft_volume], Physicochemical properties: [physicochemical_alpha_structure, physicochemical_betha_structure, physicochemical_energetic, physicochemical_hydropathy, physicochemical_hydrophobicity, physicochemical_index, physicochemical_secondary_structure, physicochemical_volume]")
     parser.add_argument("--transform", metavar="[transform method] (optional)", help="PCA: [pca], Kernel-PCA: [kernel_pca]")
     parser.add_argument("--epochs", metavar="[num epochs]", help="Number of epochs")
+    parser.add_argument("--hidden", metavar="[num hidden layers] (optional)", help="Number of hidden layers for GCN layers")
     parser.add_argument("--test", metavar="[percentage of data for training]", help="Number: [0, 1]")
     args = parser.parse_args()
     if args.features is None or args.epochs is None or args.test is None:
@@ -165,6 +163,22 @@ if __name__ == "__main__":
             print()
             parser.print_help()
             sys.exit()
+
+    if not args.hidden is None:
+        try:
+            args.hidden = int(args.hidden)
+            if args.hidden < 1:
+                print("Hidden layers number must be greater than 0")
+                print()
+                parser.print_help()
+                sys.exit()
+        except:
+            print("Hidden layers number must be an integer")
+            print()
+            parser.print_help()
+            sys.exit()
+    else:
+        args.hidden = ''
 
     try: 
         args.epochs = int(args.epochs)
@@ -195,6 +209,6 @@ if __name__ == "__main__":
         sys.exit()
 
     if args.transform is None:
-        main(args.features, None, args.epochs, 'gnn', args.test)
+        main(args.features, None, args.epochs, 'gnn', args.test, args.hidden)
     else:
-        main(args.features, args.transform, args.epochs, 'gnn', args.test)
+        main(args.features, args.transform, args.epochs, 'gnn', args.test, args.hidden)
