@@ -43,7 +43,7 @@ def main(feature, transform, estimators, type_model, test_split):
     # Dividir set de datos
     n = int(num_edges)
     ids_edges = list(range(num_edges))
-    tamano_test = int(n * test_split) # Aquí se reserva un 20% de la muestra para la validacion
+    tamano_test = int(n * test_split) # Aquí se reserva un 20% de la muestra para el testeo
     # Dividir aleatoriamente la lista de edges
     random.seed(123)
     random.shuffle(ids_edges)
