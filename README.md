@@ -23,7 +23,7 @@ Para todos los scripts dentro de "pip_modelos_clasificacion" o  "pip_modelos_reg
 
 ```bash
 python nombre_script -h o python nombre_script --help
-
+```
 Asi se desplegara una manual de uso con un ejemplo de como se puede ejecutar cada script.
 
 # Parametros
