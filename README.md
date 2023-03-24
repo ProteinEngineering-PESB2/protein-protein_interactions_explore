@@ -1,13 +1,13 @@
 # Protein-protein_interactions_explore
 
-# Requisitos
+## Requisitos
 
 Para poder correr los modelos es necesario incoporar una caperta llamada "pip_data_modelos" en al carpeta raiz. Esta carpeta contiene los datos de pip transformados en matrices y todas las representaciones disponibles, mas transformaciones  PCA o Kernel PCA.
 
 Link pip_data_modelos: https://drive.google.com/drive/folders/1uXwGifLdCDT7KPy_n7MILXuFt-paBY33?usp=sharing
 
 
-# Python - dependecias
+## Python - dependecias
 
 Los modelos requieren principalmente 3 librerias para poder funcionar: Pytorch, Pytorch Geometric y DGL
 
@@ -17,7 +17,7 @@ Es importante tener en cuenta que versiones de CUDA se cuenta ya que estas 3 lib
 
 Hay un "requirements.txt" que contiene todo los modulos necesarios a ser instalados utilizando pip. Para obtener este archivo se hizo un ambiente de cero en python version 3.7.9 y se instalaron las dependecias descritas arriba, en una maquina con CUDA 12.0, donde finalmente se obtuvo la version para CUDA 11.7 en cada uno (DGL solo permite 11.7 y Pytorch geometric solo hasta 11.8).
 
-# Uso
+## Uso
 
 Para todos los scripts dentro de "pip_modelos_clasificacion" o  "pip_modelos_regresion", se puede usar: 
 
@@ -26,7 +26,7 @@ python nombre_script -h o python nombre_script --help
 ```
 Asi se desplegara una manual de uso con un ejemplo de como se puede ejecutar cada script.
 
-# Parametros
+## Parametros
 
 Dentro de los parametros que se utilizan estan:
 
@@ -50,16 +50,16 @@ Physicochemical properties: [physicochemical_alpha_structure, physicochemical_be
  
 - **test**: seleccionar proporcion del set de datos que se usara para testear el modelo. [0, 1]
 
-# Ejemplos
+## Ejemplos
 
-Modelos de regresion
+### Modelos de regresion
 ```bash
 python gnn_edge_regressor_pip.py --features bepler --transform pca --epochs 200 --test 0.3
 python mlp_edge_regressor_pip.py --features bepler --transform kernel_pca --epochs 200 --test 0.3
 python random_forest_edge_regressor_pip.py --features bepler --estimators 20 --test 0.3
 ```
 
-Modelos de clasificacion
+### Modelos de clasificacion
 ```bash
 python gnn_linkpred_pip.py --features bepler --transform kernel_pca --epochs 200 --test 0.3
 python mlp_linkpred_pip.py --features bepler  --epochs 200 --test 0.3
