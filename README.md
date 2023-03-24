@@ -46,6 +46,8 @@ Physicochemical properties: [physicochemical_alpha_structure, physicochemical_be
  
 - **epochs**: numero de epocas al momento de entrenar el modelo (GNN y MLP)
 
+- **hidden (opcional)**: numero de canales ocultos para la capas de GCN/Linear al momento de entrenar el modelo (GNN y MLP)
+
 - **estimators**: numero de estimadores al entrenar el modelo de Random Forest
  
 - **test**: seleccionar proporcion del set de datos que se usara para testear el modelo. [0, 1]
