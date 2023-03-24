@@ -2,7 +2,7 @@
 
 # Requisitos
 
-Para poder correr los modelos es necesario incoporar una caperta llamada "pip_data_modelos" en al carpeta raiz. Esta carpeta contiene los datos de pip transformados en matrices, con todas las representaciones disponibles, mas transformaciones  PCA o Kenerl PCA.
+Para poder correr los modelos es necesario incoporar una caperta llamada "pip_data_modelos" en al carpeta raiz. Esta carpeta contiene los datos de pip transformados en matrices y todas las representaciones disponibles, mas transformaciones  PCA o Kenerl PCA.
 
 Link pip_data_modelos: https://drive.google.com/drive/folders/1uXwGifLdCDT7KPy_n7MILXuFt-paBY33?usp=sharing
 
