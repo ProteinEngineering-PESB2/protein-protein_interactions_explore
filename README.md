@@ -30,9 +30,9 @@ Asi se desplegara una manual de uso con un ejemplo de como se puede ejecutar cad
 
 Dentro de los parametros que se utilizan estan:
 
-- **features**: seleccionar conjunto de features a usar, ya sea descriptor, Onehot, NLP, FFT o propiedades fisicoquimicas. Las opcione son las siguiente.
+- **features**: seleccionar conjunto de features a usar, ya sea un descriptor que usa seq_to_seq o metodos como Onehot, NLP, FFT o propiedades fisicoquimicas. Las opcione son las siguiente.
 
-Features: [seq_to_seq]
+Descriptor: [seq_to_seq]
 
 NLP: [bepler, fasttext, glove]
 
