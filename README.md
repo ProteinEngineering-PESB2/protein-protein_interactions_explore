@@ -30,7 +30,7 @@ Asi se desplegara una manual de uso con un ejemplo de como se puede ejecutar cad
 
 Dentro de los parametros que se utilizan estan:
 
-**features**: seleccionar conjunto de features a usar, ya sea descriptor, Onehot, NLP, FFT o propiedades fisicoquimicas. Las opcione son las siguiente.
+- **features**: seleccionar conjunto de features a usar, ya sea descriptor, Onehot, NLP, FFT o propiedades fisicoquimicas. Las opcione son las siguiente.
 
 Features: [seq_to_seq]
 
@@ -42,10 +42,10 @@ FFT: [fft_alpha_structure, fft_betha_structure, fft_energetic, fft_hydropathy, f
 
 Physicochemical properties: [physicochemical_alpha_structure, physicochemical_betha_structure, physicochemical_energetic, physicochemical_hydropathy, physicochemical_hydrophobicity, physicochemical_index, physicochemical_secondary_structure, physicochemical_volume]
 
-**transform (opcional)**: seleccionar metodo de transformacion de features, ya sea PCA o Kernel-PCA [pca, kernel_pca]
+- **transform (opcional)**: seleccionar metodo de transformacion de features, ya sea PCA o Kernel-PCA [pca, kernel_pca]
  
-**epochs**: numero de epocas al momento de entrenar el modelo (GNN y MLP)
+- **epochs**: numero de epocas al momento de entrenar el modelo (GNN y MLP)
 
-**estimators**: numero de estimadores al entrenar el modelo de Random Forest
+- **estimators**: numero de estimadores al entrenar el modelo de Random Forest
  
-**test**: seleccionar proporcion del set de datos que se usara para testear el modelo. [0, 1]
+- **test**: seleccionar proporcion del set de datos que se usara para testear el modelo. [0, 1]
