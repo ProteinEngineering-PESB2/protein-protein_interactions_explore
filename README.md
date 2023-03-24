@@ -49,3 +49,16 @@ Physicochemical properties: [physicochemical_alpha_structure, physicochemical_be
 - **estimators**: numero de estimadores al entrenar el modelo de Random Forest
  
 - **test**: seleccionar proporcion del set de datos que se usara para testear el modelo. [0, 1]
+
+# Ejemplos
+
+```bash
+python gnn_edge_regressor_pip.py --features bepler --transform(optional) pca --epochs 200 --test 0.3
+python mlp_edge_regressor_pip.py --features bepler --transform(optional) pca --epochs 200 --test 0.3
+python random_forest_edge_regressor_pip.py --features bepler --transform(optional) pca --estimators 20 --test 0.3
+
+python gnn_linkpred_pip.py --features bepler --transform(optional) pca --epochs 200 --test 0.3
+python mlp_linkpred_pip.py --features bepler --transform(optional) pca --epochs 200 --test 0.3
+python random_forest_edge_regressor_pip.py --features bepler --transform(optional) pca --test 0.3
+```
+
