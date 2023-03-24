@@ -150,7 +150,7 @@ if __name__ == "__main__":
     parser.add_argument("--features", metavar="[features to use]", help="Features: [seq_to_seq], NLP: [bepler, fasttext, glove], Onehot: [onehot], FFT: [fft_alpha_structure, fft_betha_structure, fft_energetic, fft_hydropathy, fft_hydrophobicity, fft_index, fft_secondary_structure, fft_volume], Physicochemical properties: [physicochemical_alpha_structure, physicochemical_betha_structure, physicochemical_energetic, physicochemical_hydropathy, physicochemical_hydrophobicity, physicochemical_index, physicochemical_secondary_structure, physicochemical_volume]")
     parser.add_argument("--transform", metavar="[transform method] (optional)", help="PCA: [pca], Kernel-PCA: [kernel_pca]")
     parser.add_argument("--epochs", metavar="[num epochs]", help="Number of epochs")
-    parser.add_argument("--hidden", metavar="[num hidden channels] (optional)", help="Number of hidden channels for GCN layers")
+    parser.add_argument("--hidden", metavar="[num hidden channels] (optional)", help="Number of hidden channels for GCN/Linear layers")
     parser.add_argument("--test", metavar="[percentage of data for training]", help="Number: [0, 1]")
     args = parser.parse_args()
     if args.features is None or args.epochs is None or args.test is None:
