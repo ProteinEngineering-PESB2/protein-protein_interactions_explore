@@ -66,7 +66,7 @@ def main(feature, transform, epochs, type_model, test_split, hidden_layers):
 
     sub_g = dgl.edge_subgraph(g, set_entrenamiento).to(device)
     sub_g_test = dgl.edge_subgraph(g, set_test).to(device)
-
+    
     # SET ENTRENAMIENTO
     src, dst = sub_g.edges()
     train_edges = torch.cat([src.unsqueeze(0), dst.unsqueeze(0)], dim=0)
@@ -96,9 +96,9 @@ def main(feature, transform, epochs, type_model, test_split, hidden_layers):
         loss_binary = F.binary_cross_entropy_with_logits(binary, sub_g.edata['label'].float(), reduction='mean')
         df_accuracy.append(accuracy)
         df_losse.append(loss_binary.item())
-        print(f'-----------------------------------------Epoch: {epoch:03d}')
-        print('Loss train: ', loss_binary.item())
-        print('Accuracy train: ', accuracy)
+        # print(f'-----------------------------------------Epoch: {epoch:03d}')
+        # print('Loss train: ', loss_binary.item())
+        # print('Accuracy train: ', accuracy)
         optimizer.step()
         # Testeo
         with torch.no_grad():
@@ -112,9 +112,9 @@ def main(feature, transform, epochs, type_model, test_split, hidden_layers):
             test_accuracy = (test_binary == sub_g_test.edata['label']).float().mean().item()
             df_accuracy.append(test_accuracy)
             df_losse.append(loss_binary.item())
-            print('------------------TEST--------------------')
-            print('Loss test: ', loss_binary.item())
-            print('Accuracy test: ', test_accuracy)
+            # print('------------------TEST--------------------')
+            # print('Loss test: ', loss_binary.item())
+            # print('Accuracy test: ', test_accuracy)
     # print('Entrenamiento termiando y modelo guardandose')
     # torch.save(model, 'modelos/trainned_model_linkpred_pip.pth')
     table = pd.DataFrame()

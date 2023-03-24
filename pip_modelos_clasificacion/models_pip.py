@@ -1,6 +1,9 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from torch_geometric.nn import GCNConv
+from torch_geometric.utils import add_remaining_self_loops, to_dense_adj
+
 
 # Linkpred con GNN
 class Net(torch.nn.Module):
@@ -26,7 +29,7 @@ class Net(torch.nn.Module):
         rounded_values = torch.where(x < cutoff, torch.zeros_like(x), torch.ones_like(x))
 
         return x.squeeze(), rounded_values.squeeze().detach()
-
+    
 # Linkpred con MLP
 class MLP(nn.Module):
     def __init__(self, in_channels, hidden_channels, out_channels):
