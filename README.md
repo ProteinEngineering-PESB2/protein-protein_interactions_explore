@@ -13,7 +13,7 @@ Los modelos requieren principalmente 3 librerias para poder funcionar: Pytorch, 
 
 Instalar en orden Pytorch -> Pytorch Geometric -> DGL. De esta manera deberia ser suficiente para tener todos los modulos principales y complementarios para correr los scripts sin problemas.
 
-Es importante tener en cuenta que versiones de CUDA se cuenta ya que estas 3 librerias se instalan de acuerdo a cual esta disponible. 
+Es importante tener en cuenta que version de CUDA se utilizará, ya que estas 3 librerias se instalan de acuerdo a cual esta disponible. 
 
 Hay un "requirements.txt" que contiene todo los modulos necesarios a ser instalados utilizando pip. Para obtener este archivo se hizo un ambiente de cero en python version 3.7.9 y se instalaron las dependecias descritas arriba, en una maquina con CUDA 12.0, donde finalmente se obtuvo la version para CUDA 11.7 en cada uno (DGL solo permite 11.7 y Pytorch geometric solo hasta 11.8).
 
