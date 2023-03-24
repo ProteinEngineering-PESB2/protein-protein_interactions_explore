@@ -12,7 +12,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-def main(feature, transform, type_model, test_split):
+def main(feature, transform, estimators, type_model, test_split):
     Dataframe = pd.read_csv('../pip_data_modelos/edge_index.csv', na_filter = False, dtype={'edge_1': int, 'edge_2': int})
     edge_1 = Dataframe['edge_1'].values
     edge_2 = Dataframe['edge_2'].values
@@ -97,17 +97,18 @@ def main(feature, transform, type_model, test_split):
     test_label = sub_g_test.edata['label'].numpy()
 
     # Modelo
-    model = RandomForestClassifier(random_state=42, n_jobs=-1)
-    model.fit(train_concat_features, train_label)
+    model = RandomForestClassifier(n_estimators=estimators, random_state=42, n_jobs=-1)
 
     df_losses = []
     df_stages = []
     df_methods = []
     df_tranform = []
     df_accuracys = []
+    df_estimators = []
 
     print('Iniciando entrenamiento...')
     # Train
+    model.fit(train_concat_features, train_label)
     train_pred = model.predict(train_concat_features)
     accuracy = (train_pred == train_label).mean().item()
     
@@ -119,6 +120,7 @@ def main(feature, transform, type_model, test_split):
     df_methods.append(feature)
     df_tranform.append(transform)
     df_accuracys.append(accuracy)
+    df_estimators.append(estimators)
 
     # Test
     test_pred = model.predict(test_concat_features)
@@ -131,22 +133,24 @@ def main(feature, transform, type_model, test_split):
     df_methods.append(feature)
     df_tranform.append(transform)
     df_accuracys.append(accuracy)
+    df_estimators.append(estimators)
 
     # print('Entrenamiento termiando y modelo guardandose')
     # torch.save(model, 'modelos/trainned_model_edge_regressor_pip.pth')
     table = pd.DataFrame()
+    table['Estimators'] = df_estimators
     table['Features_used'] = df_methods
     table['Transform_method'] = df_tranform
     table['Stage'] = df_stages
     table['Accuracy'] = df_accuracys
-    table['MSE'] = df_losses
+    table['BCE'] = df_losses
 
     print('Entrenamiento finalizado...')
-    print('Resultados guardados en resultados/' + type_model + '_edge_regressor_test_' + str(test_split) + '.csv')
+    print('Resultados guardados en resultados/' + type_model + '_linkpred_estimators_' + str(estimators) + '_test_' + str(test_split) + '.csv')
     ruta = 'resultados/'
     if not os.path.exists(ruta):
         os.mkdir(ruta)
-    table.to_csv('resultados/' + type_model + '_edge_regressor_test_' + str(test_split) + '.csv', index=False)
+    table.to_csv('resultados/' + type_model + '_linkpred_estimators_' + str(estimators) + '_test_' + str(test_split) + '.csv', index=False)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -154,6 +158,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(usage="(example) random_forest_edge_regressor_pip.py --features bepler --transform(optional) pca --test 0.3")
     parser.add_argument("--features", metavar="[features to use]", help="Features: [seq_to_seq], NLP: [bepler, fasttext, glove], Onehot: [onehot], FFT: [fft_alpha_structure, fft_betha_structure, fft_energetic, fft_hydropathy, fft_hydrophobicity, fft_index, fft_secondary_structure, fft_volume], Physicochemical properties: [physicochemical_alpha_structure, physicochemical_betha_structure, physicochemical_energetic, physicochemical_hydropathy, physicochemical_hydrophobicity, physicochemical_index, physicochemical_secondary_structure, physicochemical_volume]")
     parser.add_argument("--transform", metavar="[transform method] (optional)", help="PCA: [pca], Kernel-PCA: [kernel_pca]")
+    parser.add_argument("--estimators", metavar="[num estimators]", help="Number of estimators")
     parser.add_argument("--test", metavar="[percentage of data for training]", help="Number: [0, 1]")
     args = parser.parse_args()
 
@@ -180,6 +185,20 @@ if __name__ == "__main__":
             sys.exit()
 
     try: 
+        args.estimators = int(args.estimators)
+    except:
+        print("Estimators must be an integer")
+        print()
+        parser.print_help()
+        sys.exit()
+
+    if  args.estimators < 1:
+        print("Estimators must be greater than 0")
+        print()
+        parser.print_help()
+        sys.exit()
+
+    try: 
         args.test = float(args.test)
     except:
         print("Percentage for test data must be a number between 0-1")
@@ -194,6 +213,6 @@ if __name__ == "__main__":
         sys.exit()
 
     if args.transform is None:
-        main(args.features, None, 'random_forest', args.test)
+        main(args.features, None, args.estimators, 'random_forest', args.test)
     else:
-        main(args.features, args.transform, 'random_forest', args.test)
+        main(args.features, args.transform, args.estimators, 'random_forest', args.test)
