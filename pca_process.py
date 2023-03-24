@@ -6,6 +6,7 @@ from sklearn.decomposition import NMF
 from sklearn.decomposition import FactorAnalysis
 from sklearn.decomposition import IncrementalPCA
 from sklearn.manifold import TSNE
+import numpy as np
 
 
 class transformation_data():
@@ -46,6 +47,7 @@ class transformation_data():
 
         pca_instance.fit(dataset)
         transform_data = pca_instance.transform(dataset)
+        transform_data = np.round(transform_data, 3)
 
         return transform_data, pca_instance
     
@@ -80,9 +82,10 @@ class transformation_data():
             n_jobs=n_jobs)
         
         kernel_pca_instance.fit(dataset)
-        tranform_data = kernel_pca_instance.transform(dataset)
+        transform_data = kernel_pca_instance.transform(dataset)
+        transform_data = np.round(transform_data, 3)
 
-        return tranform_data, kernel_pca_instance
+        return transform_data, kernel_pca_instance
     
     def apply_sparce_pca(
         self, 
