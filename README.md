@@ -54,15 +54,15 @@ Physicochemical properties: [physicochemical_alpha_structure, physicochemical_be
 
 Modelos de regresion
 ```bash
-python gnn_edge_regressor_pip.py --features bepler --transform(optional) pca --epochs 200 --test 0.3
-python mlp_edge_regressor_pip.py --features bepler --transform(optional) pca --epochs 200 --test 0.3
-python random_forest_edge_regressor_pip.py --features bepler --transform(optional) pca --estimators 20 --test 0.3
+python gnn_edge_regressor_pip.py --features bepler --transform pca --epochs 200 --test 0.3
+python mlp_edge_regressor_pip.py --features bepler --transform kernel_pca --epochs 200 --test 0.3
+python random_forest_edge_regressor_pip.py --features bepler --estimators 20 --test 0.3
 ```
 
 Modelos de clasificacion
 ```bash
-python gnn_linkpred_pip.py --features bepler --transform(optional) pca --epochs 200 --test 0.3
-python mlp_linkpred_pip.py --features bepler --transform(optional) pca --epochs 200 --test 0.3
-python random_forest_edge_regressor_pip.py --features bepler --transform(optional) pca --test 0.3
+python gnn_linkpred_pip.py --features bepler --transform kernel_pca --epochs 200 --test 0.3
+python mlp_linkpred_pip.py --features bepler  --epochs 200 --test 0.3
+python random_forest_edge_regressor_pip.py --features bepler --transform pca --test 0.3
 ```
 
