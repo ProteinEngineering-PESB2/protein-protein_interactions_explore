@@ -181,7 +181,7 @@ if __name__ == "__main__":
         sys.exit()
 
     if not args.transform is None:
-        if  args.transform not in methods:
+        if  args.transform not in transform_methods:
             print("Tranform method invalid, use options below")
             print()
             parser.print_help()
