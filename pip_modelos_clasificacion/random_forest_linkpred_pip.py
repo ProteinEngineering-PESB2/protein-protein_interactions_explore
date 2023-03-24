@@ -162,7 +162,7 @@ if __name__ == "__main__":
     parser.add_argument("--test", metavar="[percentage of data for training]", help="Number: [0, 1]")
     args = parser.parse_args()
 
-    if args.features is None or args.test is None:
+    if args.features is None or args.test is None or args.estimators is None:
         print("Missing parameters")
         print()
         parser.print_help()
