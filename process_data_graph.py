@@ -90,9 +90,11 @@ if __name__ == "__main__":
     # transform_method = ['no_transform', 'pca', 'kernel_pca']
     transform_methods = ['no_transform'] # sin pca ni kernel_pca
 
-    databases = ['kd_pdbbind_database.csv', 'proximate_dg.csv', 'proximate_kd.csv',
+    databases = ['kd_pdbbind_database.csv', 'pip_database.csv', 'proximate_dg.csv', 'proximate_kd.csv',
                  'proximate_kon.csv', 'skempi_affinity.csv', 'skempi_koff.csv', 'skempi_kon.csv'] # no se incluye pip
 
+    # methods = ['bepler']
+    # databases = ['kd_pdbbind_database.csv']    
     processes = []
     for database in databases:
         db_name = database.split('.')[0]

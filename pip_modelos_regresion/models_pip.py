@@ -20,7 +20,7 @@ class EdgeWeightPredictor(nn.Module):
         edge_scores = self.relu(edge_scores)
         edge_scores = self.g_conv2(edge_scores, edge_index)
         edge_scores = self.linear(edge_scores)
-        
+
         return edge_scores.squeeze()
 
 # Edge regressor MLP
