@@ -8,4 +8,12 @@ modelos_que_no_se_usaran/
 plots_y_tablas_antiguas/
 pip_data_modelos/
 pip_modelos_que_no_se_usaran/
+skempi_affinity_data_modelos/
+skempi_koff_data_modelos/
+skempi_kon_data_modelos/
+kd_pdbbind_database_data_modelos/
+proximate_dg_data_modelos/
+proximate_kd_data_modelos/
+proximate_kon_data_modelos/
+
 __pycache__
